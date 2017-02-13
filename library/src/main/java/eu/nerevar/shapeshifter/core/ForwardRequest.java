@@ -1,6 +1,8 @@
 package eu.nerevar.shapeshifter.core;
 
-
+/**
+ * Default forward request built by {@link ForwardBuilder} and used by {@link BaseNavigationController}.
+ */
 public class ForwardRequest extends BaseRequest {
 
     public final Object enterTransition;

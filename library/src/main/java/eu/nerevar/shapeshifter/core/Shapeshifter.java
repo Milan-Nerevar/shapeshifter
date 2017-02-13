@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * A singleton to represent a simple static interface for building navigation requests with {@link RequestManager}.
+ */
 public final class Shapeshifter {
 
     /**
@@ -23,7 +26,15 @@ public final class Shapeshifter {
      * Navigation from fragment
      */
     public static RequestManager with(@NonNull final Fragment fragment) {
-        return new RequestManager(fragment);
+        if (fragment.getActivity() == null) {
+            throw new IllegalArgumentException("Activity of fragment cannot be null to support navigation.");
+        }
+
+        if (!(fragment.getActivity() instanceof AppCompatActivity)) {
+            throw new IllegalArgumentException("Activity must extend AppCompatActivity to support navigation.");
+        }
+
+        return new RequestManager((AppCompatActivity) fragment.getActivity());
     }
 
 }

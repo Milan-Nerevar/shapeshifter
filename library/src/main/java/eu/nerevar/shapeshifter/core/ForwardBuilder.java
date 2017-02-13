@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
 
+/**
+ * Default forward builder for creating a {@link ForwardRequest} used by {@link BaseNavigationController}.
+ */
 public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, ForwardMode> {
 
     Object enterTransition;

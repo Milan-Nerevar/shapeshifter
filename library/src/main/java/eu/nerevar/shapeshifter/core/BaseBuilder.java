@@ -15,9 +15,19 @@ import eu.nerevar.shapeshifter.utils.Utils;
  */
 public abstract class BaseBuilder<T extends BaseBuilder<T, R, M>, R extends BaseRequest, M> {
 
+    /**
+     * Navigation controller attached to activity to handle the navigation
+     */
     protected final NavigationController<R, BaseRequest> navigationController;
 
+    /**
+     * Activity upon which to do the navigation
+     */
     final AppCompatActivity activity;
+
+    /**
+     * Fragment which to handle by navigation controller inside the activity
+     */
     Fragment fragment;
 
     boolean immediate;

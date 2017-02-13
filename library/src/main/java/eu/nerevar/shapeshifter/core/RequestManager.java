@@ -1,22 +1,29 @@
 package eu.nerevar.shapeshifter.core;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * A class which represents an interface to build navigation request builders of type {@link BaseBuilder}
+ * and holds given {@link AppCompatActivity} to handle the operations of it's support fragment manager.
+ */
 public final class RequestManager {
 
+    /**
+     * Activity to handle the operations
+     */
     private final AppCompatActivity activity;
 
+    /**
+     * Default constructor to instantiate request manager from activity
+     *
+     * @param activity to handle navigation operations
+     */
     RequestManager(AppCompatActivity activity) {
         this.activity = activity;
-    }
-
-    RequestManager(Fragment fragment) {
-        this((AppCompatActivity) fragment.getActivity());
     }
 
     public boolean pop() {
