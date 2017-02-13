@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 
 import eu.inloop.viewmodel.base.ViewModelBaseEmptyActivity;
 import eu.nerevar.sample.R;
-import eu.nerevar.sample.circle.CircleFragment;
-import eu.nerevar.shapeshifter.core.IShapeshifter;
+import eu.nerevar.sample.circleintroduction.CircleIntroductionFragment;
 import eu.nerevar.shapeshifter.core.ForwardMode;
+import eu.nerevar.shapeshifter.core.IShapeshifter;
 import eu.nerevar.shapeshifter.core.NavigationController;
 import eu.nerevar.shapeshifter.core.Shapeshifter;
 
@@ -24,11 +24,11 @@ public class RootActivity extends ViewModelBaseEmptyActivity implements IShapesh
         DataBindingUtil.setContentView(this, R.layout.activity_root);
 
         if (savedInstanceState == null) {
-            Shapeshifter
-                    .with(this)
+            Shapeshifter.with(this)
                     .forward()
-                    .setFragment(CircleFragment.newInstance())
-                    .navigate(ForwardMode.REPLACEMENT);
+                    .setFragment(CircleIntroductionFragment.newInstance())
+                    .setRoot(CircleIntroductionFragment.class.getName())
+                    .navigate(ForwardMode.WITHOUT_REPLACEMENT);
         }
     }
 

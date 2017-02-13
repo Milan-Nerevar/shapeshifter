@@ -3,8 +3,8 @@ package eu.nerevar.shapeshifter.core;
 /**
  * Prescription for navigation controller
  *
- * @param <F> forward request
- * @param <B> backward request
+ * @param <F> forward request type
+ * @param <B> backward request type
  */
 public interface NavigationController<F extends BaseRequest, B extends BaseRequest> {
 
@@ -22,6 +22,11 @@ public interface NavigationController<F extends BaseRequest, B extends BaseReque
      * Navigate to fragment without replacement
      */
     void navigateWithoutReplacement(F request);
+
+    /**
+     * Navigate to fragment's specified root
+     */
+    boolean navigateToFragmentRoot(B request);
 
     /**
      * Pops whole back stack excluding first fragment

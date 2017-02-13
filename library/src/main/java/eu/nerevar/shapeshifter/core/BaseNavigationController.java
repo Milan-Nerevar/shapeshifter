@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.List;
 
 import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_CLOSE;
 import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
@@ -25,71 +24,52 @@ public abstract class BaseNavigationController implements NavigationController<F
     @Override
     public void navigateByAddition(ForwardRequest request) {
         addFragment(request, true);
-        request.activity.getSupportFragmentManager().executePendingTransactions();
+//        request.activity.getSupportFragmentManager().executePendingTransactions();
         setAnimations(request);
     }
 
     @Override
     public void navigateByReplacement(ForwardRequest request) {
         replaceFragment(request, false);
-        request.activity.getSupportFragmentManager().executePendingTransactions();
+//        request.activity.getSupportFragmentManager().executePendingTransactions();
         setAnimations(request);
     }
 
     @Override
     public void navigateWithoutReplacement(ForwardRequest request) {
         replaceFragment(request, true);
-        request.activity.getSupportFragmentManager().executePendingTransactions();
+//        request.activity.getSupportFragmentManager().executePendingTransactions();
         setAnimations(request);
+    }
+
+    @Override
+    public boolean navigateToFragmentRoot(BackwardRequest request) {
+        if (request.root == null) {
+            return false;
+        }
+
+        final FragmentManager fragmentManager = request.activity.getSupportFragmentManager();
+
+        if (request.immediate) {
+            fragmentManager.popBackStackImmediate(request.root, 0);
+        } else {
+            fragmentManager.popBackStack(request.root, 0);
+        }
+
+        return false;
     }
 
     @Override
     public boolean popWholeBackStack(BackwardRequest request) {
         final FragmentManager fragmentManager = request.activity.getSupportFragmentManager();
 
-        final List<Fragment> fragments = fragmentManager.getFragments();
-
-        if (fragments != null && !fragments.isEmpty()) {
-            for (Fragment fragment : fragments) {
-                if (request.leaveFirst && fragments.indexOf(fragment) == (fragments.size() - 1)) {
-                    break;
-                }
-
-                if (fragment == null || fragment.isRemoving() || fragment.isDetached()) {
-                    // do nothing
-                } else {
-                    final FragmentTransaction transaction = fragmentManager.beginTransaction().remove(fragment);
-                    if (request.immediate) {
-                        if (request.allowStateLoss) {
-                            transaction.commitNowAllowingStateLoss();
-                        } else {
-                            transaction.commitNow();
-                        }
-                    } else {
-                        if (request.allowStateLoss) {
-                            transaction.commitAllowingStateLoss();
-                        } else {
-                            transaction.commit();
-                        }
-                    }
-                }
+        while (fragmentManager.getBackStackEntryCount() <= 0) {
+            if (request.immediate) {
+                fragmentManager.popBackStackImmediate();
+            } else {
+                fragmentManager.popBackStack();
             }
-
-            fragments.clear();
-
-            return true;
         }
-
-//        final int temp = request.leaveFirst ? 1 : 0;
-//
-//        if (fragmentManager.getBackStackEntryCount() > temp) {
-//
-//            for (int i = temp; i < fragmentManager.getBackStackEntryCount(); i++) {
-//                pop(request);
-//            }
-//
-//            return true;
-//        }
 
         return false;
     }
@@ -119,7 +99,7 @@ public abstract class BaseNavigationController implements NavigationController<F
         ft.setTransition(getFragmentTransition());
 
         // replace fragment
-        ft.replace(getContainerId(), request.fragment, null);
+        ft.replace(getContainerId(), request.fragment, getRootTag());
 
         // add to backstack ?
         if (addToBackStack) {
@@ -151,7 +131,7 @@ public abstract class BaseNavigationController implements NavigationController<F
         ft.setTransition(getFragmentTransition());
 
         // add fragment
-        ft.add(getContainerId(), request.fragment, null);
+        ft.add(getContainerId(), request.fragment, request.fragment.getClass().getName());
 
         // add to backstack ?
         if (addToBackStack) {

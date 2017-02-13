@@ -4,11 +4,15 @@ package eu.nerevar.shapeshifter.core;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
+import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
+
 public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardRequest, BackwardMode> {
 
     boolean immediate;
     boolean leaveFirst;
     boolean allowStateLoss;
+
+    String root;
 
     public BackwardBuilder(@NonNull AppCompatActivity activity) {
         super(activity);
@@ -16,9 +20,10 @@ public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardReques
 
     @Override
     public void navigate(BackwardMode mode) {
+        init();
         switch (mode) {
             case FRAGMENT_ROOT:
-                // TODO
+                navigationController.navigateToFragmentRoot(new BackwardRequest(this));
                 break;
             case POP:
                 navigationController.pop(new BackwardRequest(this));
@@ -31,6 +36,7 @@ public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardReques
 
     @Override
     public void navigate(NavigationTask<BackwardRequest> navigationTask) {
+        init();
         // TODO
     }
 
@@ -52,5 +58,13 @@ public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardReques
     public BackwardBuilder setAllowStateLoss(boolean allowStateLoss) {
         this.allowStateLoss = allowStateLoss;
         return self();
+    }
+
+    protected void init() {
+        if (fragment == null || fragment.getArguments() == null) {
+            return;
+        }
+
+        this.root = fragment.getArguments().getString(ShapeshifterConstants.ARG_FRAGMENT_ROOT);
     }
 }

@@ -29,6 +29,11 @@ public final class RequestManager {
         return false;
     }
 
+    /**
+     * Default backward builder
+     *
+     * @return builder of {@link BackwardBuilder} class
+     */
     public BackwardBuilder backward() {
         return forClass(BackwardBuilder.class);
     }
@@ -45,7 +50,13 @@ public final class RequestManager {
     /**
      * Returns custom request builder.
      * <p>
-     * Request builder and Navigation Controller of calling activity must match.
+     * Request builder and Navigation Controller request types of calling activity must match.
+     *
+     * @param clazz class of which to create the class
+     * @param <T>   type of Builder
+     * @param <R>   type of Request
+     * @param <M>   type of navigation mode
+     * @return new instance of specified class created from one parameter constructor of class AppCompatActivity
      */
     public <T extends BaseBuilder<T, R, M>, R extends BaseRequest, M> T forClass(Class<T> clazz) {
         T instance = null;

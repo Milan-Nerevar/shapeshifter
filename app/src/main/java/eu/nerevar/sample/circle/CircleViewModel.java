@@ -5,18 +5,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.Random;
 
-import eu.inloop.viewmodel.AbstractViewModel;
+import eu.nerevar.sample.base.BaseViewModel;
+import eu.nerevar.sample.circleintroduction.CircleIntroductionFragment;
 import eu.nerevar.shapeshifter.core.BackwardMode;
 import eu.nerevar.shapeshifter.core.ForwardMode;
 import eu.nerevar.shapeshifter.core.Shapeshifter;
 
-public class CircleViewModel extends AbstractViewModel<CircleView> {
+public class CircleViewModel extends BaseViewModel<CircleView> {
 
     private static final String ARG_MODEl = "arg_model";
 
@@ -75,7 +74,19 @@ public class CircleViewModel extends AbstractViewModel<CircleView> {
         Shapeshifter.with(getActivity())
                 .forward()
                 .setFragment(CircleFragment.newInstance())
+                .setRoot(CircleIntroductionFragment.class.getName())
                 .navigate(ForwardMode.WITHOUT_REPLACEMENT);
+    }
+
+    public void navigateToRootFragment() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        Shapeshifter.with(getActivity())
+                .backward()
+                .setFragment(getFragment())
+                .navigate(BackwardMode.FRAGMENT_ROOT);
     }
 
     public void pop() {
@@ -85,7 +96,6 @@ public class CircleViewModel extends AbstractViewModel<CircleView> {
 
         Shapeshifter.with(getActivity())
                 .backward()
-                .setImmediate(true)
                 .navigate(BackwardMode.POP);
     }
 
@@ -96,9 +106,8 @@ public class CircleViewModel extends AbstractViewModel<CircleView> {
 
         Shapeshifter.with(getActivity())
                 .backward()
-                .setImmediate(false)
-                .setAllowStateLoss(false)
                 .setLeaveFirst(leaveFirst)
+                .setImmediate(true)
                 .navigate(BackwardMode.POP_WHOLE);
     }
 
@@ -110,23 +119,5 @@ public class CircleViewModel extends AbstractViewModel<CircleView> {
         final Random rnd = new Random();
 
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-    }
-
-    /**
-     * @return current activity
-     */
-    @Nullable
-    private AppCompatActivity getActivity() {
-        if (getView() != null && getView() instanceof Fragment) {
-            final Fragment fragment = (Fragment) getView();
-
-            if (fragment.getActivity() instanceof AppCompatActivity) {
-                return (AppCompatActivity) fragment.getActivity();
-            }
-        } else if (getView() != null && getView() instanceof AppCompatActivity) {
-            return (AppCompatActivity) getView();
-        }
-
-        return null;
     }
 }

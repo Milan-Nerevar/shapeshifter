@@ -1,8 +1,11 @@
 package eu.nerevar.shapeshifter.core;
 
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+
+import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
 
 public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, ForwardMode> {
 
@@ -117,5 +120,13 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
         fragment.setReturnTransition(returnTransition);
         fragment.setSharedElementEnterTransition(sharedElementEnterTransition);
         fragment.setSharedElementReturnTransition(sharedElementReturnTransition);
+
+        if (fragment.getArguments() == null) {
+            final Bundle arg = new Bundle(1);
+            arg.putString(ShapeshifterConstants.ARG_FRAGMENT_ROOT, root);
+            fragment.setArguments(arg);
+        } else {
+            fragment.getArguments().putString(ShapeshifterConstants.ARG_FRAGMENT_ROOT, root);
+        }
     }
 }
