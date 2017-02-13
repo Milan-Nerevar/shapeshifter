@@ -1,6 +1,8 @@
 package eu.nerevar.shapeshifter.core;
 
 
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -26,14 +28,27 @@ public final class RequestManager {
         this.activity = activity;
     }
 
-    public boolean pop() {
-        // TODO
-        return false;
+    /**
+     * Default implementation to pop by one fragment
+     */
+    public void pop() {
+        backward().navigate(BackwardMode.POP);
     }
 
-    public boolean navigateToRootFragment() {
-        // TODO
-        return false;
+    /**
+     * Default implementation to pop whole fragment manager.
+     */
+    public void popWhole() {
+        backward().navigate(BackwardMode.POP_WHOLE);
+    }
+
+    /**
+     * Default implementation to navigate to root fragment
+     *
+     * @param fragment fragment of which root to return to
+     */
+    public void navigateToRootFragment(@NonNull final Fragment fragment) {
+        backward().setFragment(fragment).navigate(BackwardMode.FRAGMENT_ROOT);
     }
 
     /**

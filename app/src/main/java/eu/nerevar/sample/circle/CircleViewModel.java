@@ -79,14 +79,12 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
     }
 
     public void navigateToRootFragment() {
-        if (getActivity() == null) {
+        if (getActivity() == null || getFragment() == null) {
             return;
         }
 
         Shapeshifter.with(getActivity())
-                .backward()
-                .setFragment(getFragment())
-                .navigate(BackwardMode.FRAGMENT_ROOT);
+                .navigateToRootFragment(getFragment());
     }
 
     public void pop() {
@@ -95,8 +93,7 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
         }
 
         Shapeshifter.with(getActivity())
-                .backward()
-                .navigate(BackwardMode.POP);
+                .pop();
     }
 
     public void popWhole(boolean leaveFirst) {
