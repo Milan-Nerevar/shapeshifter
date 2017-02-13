@@ -11,9 +11,10 @@ import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
  */
 public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardRequest, BackwardMode> {
 
-    boolean immediate;
+    /**
+     * Leave first fragment in stack. Default false.
+     */
     boolean leaveFirst;
-    boolean allowStateLoss;
 
     String root;
 
@@ -38,9 +39,15 @@ public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardReques
     }
 
     @Override
-    public void navigate(NavigationTask<BackwardRequest> navigationTask) {
+    public void navigate(final NavigationTask<BackwardRequest> navigationTask) {
         init();
-        // TODO
+
+        new Runnable() {
+            @Override
+            public void run() {
+                navigationTask.run(navigationController);
+            }
+        };
     }
 
     @Override
@@ -48,18 +55,11 @@ public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardReques
         return this;
     }
 
-    public BackwardBuilder setImmediate(boolean immediate) {
-        this.immediate = immediate;
-        return self();
-    }
-
+    /**
+     * Leave first fragment in stack. Default false.
+     */
     public BackwardBuilder setLeaveFirst(boolean leaveFirst) {
         this.leaveFirst = leaveFirst;
-        return self();
-    }
-
-    public BackwardBuilder setAllowStateLoss(boolean allowStateLoss) {
-        this.allowStateLoss = allowStateLoss;
         return self();
     }
 

@@ -63,14 +63,25 @@ public abstract class BaseNavigationController implements NavigationController<F
     public boolean popWholeBackStack(BackwardRequest request) {
         final FragmentManager fragmentManager = request.activity.getSupportFragmentManager();
 
-        while (fragmentManager.getBackStackEntryCount() <= 0) {
-            if (request.immediate) {
+        if (fragmentManager.getBackStackEntryCount() <= 0) {
+            return false;
+        }
+
+        final int temp = request.leaveFirst ? 1 : 0;
+
+        if (request.immediate) {
+            while (fragmentManager.getBackStackEntryCount() > temp) {
                 fragmentManager.popBackStackImmediate();
-            } else {
+            }
+        } else {
+            final int count = fragmentManager.getBackStackEntryCount();
+
+            for (int i = temp; i < count; i++) {
                 fragmentManager.popBackStack();
             }
         }
 
+        // TODO return value
         return false;
     }
 

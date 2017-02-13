@@ -12,8 +12,8 @@ public abstract class BaseRequest {
     public final AppCompatActivity activity;
     public final Fragment fragment;
 
-    boolean immediate;
-    boolean allowStateLoss;
+    public final boolean immediate;
+    public final boolean allowStateLoss;
 
     public BaseRequest(BaseBuilder builder) {
         this.activity = builder.activity;

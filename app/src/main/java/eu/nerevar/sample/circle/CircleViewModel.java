@@ -107,7 +107,7 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
         Shapeshifter.with(getActivity())
                 .backward()
                 .setLeaveFirst(leaveFirst)
-                .setImmediate(true)
+                .setImmediate(false)
                 .navigate(BackwardMode.POP_WHOLE);
     }
 
