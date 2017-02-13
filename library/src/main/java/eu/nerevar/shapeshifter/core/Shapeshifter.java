@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
  */
 public final class Shapeshifter {
 
+    private Shapeshifter() {
+        // empty & unused constructor
+    }
+
     /**
      * Navigation from activity
      */
