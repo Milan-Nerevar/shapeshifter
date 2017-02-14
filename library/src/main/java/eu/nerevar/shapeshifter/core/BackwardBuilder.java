@@ -11,11 +11,6 @@ import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
  */
 public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardRequest, BackwardMode> {
 
-    /**
-     * Leave first fragment in stack. Default false.
-     */
-    boolean leaveFirst;
-
     String root;
 
     public BackwardBuilder(@NonNull AppCompatActivity activity) {
@@ -53,14 +48,6 @@ public class BackwardBuilder extends BaseBuilder<BackwardBuilder, BackwardReques
     @Override
     protected BackwardBuilder self() {
         return this;
-    }
-
-    /**
-     * Leave first fragment in stack. Default false.
-     */
-    public BackwardBuilder setLeaveFirst(boolean leaveFirst) {
-        this.leaveFirst = leaveFirst;
-        return self();
     }
 
     protected void init() {

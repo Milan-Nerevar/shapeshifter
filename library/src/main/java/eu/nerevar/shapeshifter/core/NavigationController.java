@@ -24,6 +24,11 @@ public interface NavigationController<F extends BaseRequest, B extends BaseReque
     void navigateWithoutReplacement(F request);
 
     /**
+     * Navigate to new fragment and pop all previous ones
+     */
+    void navigateToNewRoot(F request);
+
+    /**
      * Navigate to fragment's specified root
      */
     boolean navigateToFragmentRoot(B request);

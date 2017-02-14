@@ -13,6 +13,7 @@ public class ForwardRequest extends BaseRequest {
     public final Object sharedElementReturnTransition;
     public final boolean allowEnterTransitionOverlap;
     public final boolean allowReturnTransitionOverlap;
+    public final boolean replaceSameFragment;
     public final String root;
 
     ForwardRequest(ForwardBuilder builder) {
@@ -26,6 +27,7 @@ public class ForwardRequest extends BaseRequest {
         this.sharedElementReturnTransition = builder.sharedElementReturnTransition;
         this.allowEnterTransitionOverlap = builder.allowEnterTransitionOverlap;
         this.allowReturnTransitionOverlap = builder.allowReturnTransitionOverlap;
+        this.replaceSameFragment = builder.replaceSameFragment;
         this.root = builder.root;
     }
 }

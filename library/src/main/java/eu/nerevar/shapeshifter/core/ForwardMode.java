@@ -7,6 +7,7 @@ public enum ForwardMode {
 
     ADDITION,
     WITHOUT_REPLACEMENT,
-    REPLACEMENT
+    REPLACEMENT,
+    NEW
 
 }

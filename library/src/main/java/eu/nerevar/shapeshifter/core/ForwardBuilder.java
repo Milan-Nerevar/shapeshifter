@@ -21,6 +21,7 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
 
     boolean allowEnterTransitionOverlap;
     boolean allowReturnTransitionOverlap;
+    boolean replaceSameFragment;
 
     String root;
 
@@ -45,6 +46,9 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
                 break;
             case WITHOUT_REPLACEMENT:
                 navigationController.navigateWithoutReplacement(new ForwardRequest(this));
+                break;
+            case NEW:
+                navigationController.navigateToNewRoot(new ForwardRequest(this));
                 break;
         }
     }
@@ -108,6 +112,11 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
 
     public ForwardBuilder setAllowReturnTransitionOverlap(boolean allowReturnTransitionOverlap) {
         this.allowReturnTransitionOverlap = allowReturnTransitionOverlap;
+        return self();
+    }
+
+    public ForwardBuilder setReplaceSameFragment(boolean replaceSameFragment) {
+        this.replaceSameFragment = replaceSameFragment;
         return self();
     }
 
