@@ -106,16 +106,17 @@ public abstract class BaseNavigationController implements NavigationController<F
             while (fragmentManager.getBackStackEntryCount() > 0) {
                 fragmentManager.popBackStackImmediate();
             }
+
+            return true;
         } else {
             final int count = fragmentManager.getBackStackEntryCount();
 
             for (int i = 0; i < count; i++) {
                 fragmentManager.popBackStack();
             }
-        }
 
-        // TODO return value
-        return false;
+            return false;
+        }
     }
 
     @Override
