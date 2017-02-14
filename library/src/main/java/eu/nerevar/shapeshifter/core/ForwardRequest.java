@@ -1,9 +1,17 @@
 package eu.nerevar.shapeshifter.core;
 
+import android.support.v4.util.Pair;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Default forward request built by {@link ForwardBuilder} and used by {@link BaseNavigationController}.
  */
 public class ForwardRequest extends BaseRequest {
+
+    public final List<Pair<View, String>> sharedElements = new ArrayList<>();
 
     public final Object enterTransition;
     public final Object exitTransition;
@@ -19,6 +27,7 @@ public class ForwardRequest extends BaseRequest {
     ForwardRequest(ForwardBuilder builder) {
         super(builder);
 
+        this.sharedElements.addAll(builder.sharedElements);
         this.enterTransition = builder.enterTransition;
         this.exitTransition = builder.exitTransition;
         this.reenterTransition = builder.reenterTransition;

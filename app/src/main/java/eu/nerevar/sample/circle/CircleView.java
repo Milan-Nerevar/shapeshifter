@@ -1,9 +1,9 @@
 package eu.nerevar.sample.circle;
 
 
-import eu.inloop.viewmodel.IView;
+import eu.nerevar.sample.base.BaseView;
 
-interface CircleView extends IView {
+interface CircleView extends BaseView {
 
     int getParentWidth();
 

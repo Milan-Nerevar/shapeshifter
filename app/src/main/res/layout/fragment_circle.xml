@@ -26,6 +26,7 @@
             android:layout_y="0dp"
             android:onClick="@{() -> viewModel.navigateToNextFragment()}"
             android:src="@drawable/circle_24dp"
+            android:transitionName="@string/transition_circle"
             app:colorTint="@{model.color}" />
 
         <LinearLayout

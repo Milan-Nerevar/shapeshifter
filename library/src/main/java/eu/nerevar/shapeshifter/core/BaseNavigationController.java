@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.Pair;
+import android.view.View;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,8 +27,8 @@ public abstract class BaseNavigationController implements NavigationController<F
 
     @Override
     public void navigateByAddition(ForwardRequest request) {
-        addFragment(request, true);
         setAnimations(request);
+        addFragment(request, true);
     }
 
     @Override
@@ -133,16 +135,20 @@ public abstract class BaseNavigationController implements NavigationController<F
         return false;
     }
 
-    protected void replaceFragment(final BaseRequest request,
+    protected void replaceFragment(final ForwardRequest request,
                                    final boolean addToBackStack) {
         // create fragment transaction
         final FragmentTransaction ft = request.activity.getSupportFragmentManager().beginTransaction();
 
         // set transition
-        ft.setTransition(getFragmentTransition());
+        if (getFragmentTransition() != TRANSIT_NONE) {
+            ft.setTransition(getFragmentTransition());
+        }
 
         // replace fragment
         ft.replace(getContainerId(), request.fragment, getRootTag());
+
+        addSharedElements(request, ft);
 
         // add to backstack ?
         if (addToBackStack) {
@@ -165,16 +171,20 @@ public abstract class BaseNavigationController implements NavigationController<F
         }
     }
 
-    protected void addFragment(final BaseRequest request,
+    protected void addFragment(final ForwardRequest request,
                                final boolean addToBackStack) {
         // create fragment transaction
         final FragmentTransaction ft = request.activity.getSupportFragmentManager().beginTransaction();
 
         // set transition
-        ft.setTransition(getFragmentTransition());
+        if (getFragmentTransition() != TRANSIT_NONE) {
+            ft.setTransition(getFragmentTransition());
+        }
 
         // add fragment
         ft.add(getContainerId(), request.fragment, request.fragment.getClass().getName());
+
+        addSharedElements(request, ft);
 
         // add to backstack ?
         if (addToBackStack) {
@@ -208,6 +218,13 @@ public abstract class BaseNavigationController implements NavigationController<F
         fragment.setSharedElementReturnTransition(request.sharedElementReturnTransition);
         fragment.setAllowEnterTransitionOverlap(request.allowEnterTransitionOverlap);
         fragment.setAllowReturnTransitionOverlap(request.allowReturnTransitionOverlap);
+    }
+
+    private void addSharedElements(@NonNull final ForwardRequest request,
+                                   @NonNull final FragmentTransaction transaction) {
+        for (Pair<View, String> sharedElement : request.sharedElements) {
+            transaction.addSharedElement(sharedElement.first, sharedElement.second);
+        }
     }
 
     @Transit

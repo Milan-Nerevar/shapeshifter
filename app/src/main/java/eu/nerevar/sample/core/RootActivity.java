@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.util.Pair;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.List;
 
 import eu.inloop.viewmodel.base.ViewModelBaseActivity;
 import eu.nerevar.sample.R;
@@ -57,5 +61,10 @@ public class RootActivity extends ViewModelBaseActivity<RootView, RootViewModel>
     @Override
     public NavigationController getNavigationController() {
         return navigationController;
+    }
+
+    @Override
+    public List<Pair<View, String>> getSharedElements() {
+        return null;
     }
 }

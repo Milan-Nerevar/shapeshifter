@@ -1,7 +1,7 @@
 package eu.nerevar.sample.circleintroduction;
 
 
-import eu.inloop.viewmodel.IView;
+import eu.nerevar.sample.base.BaseView;
 
-public interface CircleIntroductionView extends IView {
+public interface CircleIntroductionView extends BaseView {
 }

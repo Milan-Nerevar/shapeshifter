@@ -5,13 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.transition.ChangeBounds;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 
 import java.util.Random;
 
+import eu.nerevar.sample.R;
 import eu.nerevar.sample.base.BaseViewModel;
 import eu.nerevar.sample.circleintroduction.CircleIntroductionFragment;
-import eu.nerevar.shapeshifter.core.BackwardMode;
 import eu.nerevar.shapeshifter.core.ForwardMode;
 import eu.nerevar.shapeshifter.core.Shapeshifter;
 
@@ -67,13 +70,21 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
     }
 
     public void navigateToNextFragment() {
-        if (getActivity() == null) {
+        if (getActivity() == null || getFragment() == null) {
             return;
         }
+
+        final ChangeBounds changeBoundsTransition = new ChangeBounds();
+        changeBoundsTransition.setDuration(300);
 
         Shapeshifter.with(getActivity())
                 .forward()
                 .setFragment(CircleFragment.newInstance())
+                .setSharedElementEnterTransition(changeBoundsTransition)
+                .setSharedElementReturnTransition(changeBoundsTransition)
+                .addSharedElements(requestSharedElements())
+                .setAllowReturnTransitionOverlap(true)
+                .setAllowEnterTransitionOverlap(true)
                 .setRoot(CircleIntroductionFragment.class.getName())
                 .navigate(ForwardMode.WITHOUT_REPLACEMENT);
     }

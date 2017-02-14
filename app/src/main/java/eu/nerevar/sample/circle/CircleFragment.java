@@ -3,8 +3,12 @@ package eu.nerevar.sample.circle;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.AbsoluteLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import eu.inloop.viewmodel.binding.ViewModelBaseBindingFragment;
 import eu.inloop.viewmodel.binding.ViewModelBindingConfig;
@@ -57,5 +61,14 @@ public class CircleFragment extends ViewModelBaseBindingFragment<CircleView, Cir
         absParams.y = y;
 
         getBinding().image.setLayoutParams(absParams);
+    }
+
+    @Override
+    public List<Pair<View, String>> getSharedElements() {
+        final List<Pair<View, String>> sharedElements = new ArrayList<>();
+
+        sharedElements.add(new Pair<View, String>(getBinding().image, getString(R.string.transition_circle)));
+
+        return sharedElements;
     }
 }

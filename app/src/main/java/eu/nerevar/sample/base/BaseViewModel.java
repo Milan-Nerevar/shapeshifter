@@ -3,12 +3,15 @@ package eu.nerevar.sample.base;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import java.util.List;
 
 import eu.inloop.viewmodel.AbstractViewModel;
-import eu.inloop.viewmodel.IView;
 
-public abstract class BaseViewModel<T extends IView> extends AbstractViewModel<T> {
+public abstract class BaseViewModel<T extends BaseView> extends AbstractViewModel<T> {
 
     @Nullable
     protected Fragment getFragment() {
@@ -31,6 +34,14 @@ public abstract class BaseViewModel<T extends IView> extends AbstractViewModel<T
             return (AppCompatActivity) getView();
         }
 
+        return null;
+    }
+
+    @Nullable
+    public List<Pair<View, String>> requestSharedElements() {
+        if (getView() != null) {
+            return getView().getSharedElements();
+        }
         return null;
     }
 

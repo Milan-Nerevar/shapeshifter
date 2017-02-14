@@ -1,7 +1,7 @@
 package eu.nerevar.sample.core;
 
 
-import eu.inloop.viewmodel.IView;
+import eu.nerevar.sample.base.BaseView;
 
-public interface RootView extends IView {
+public interface RootView extends BaseView {
 }

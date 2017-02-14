@@ -1,9 +1,19 @@
 package eu.nerevar.shapeshifter.core;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.TransitionRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.TransitionInflater;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
 
@@ -11,6 +21,8 @@ import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
  * Default forward builder for creating a {@link ForwardRequest} used by {@link BaseNavigationController}.
  */
 public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, ForwardMode> {
+
+    final List<Pair<View, String>> sharedElements = new ArrayList<>();
 
     Object enterTransition;
     Object exitTransition;
@@ -35,7 +47,7 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
             throw new IllegalStateException("Fragment cannot be null");
         }
 
-        init();
+        initArguments();
 
         switch (mode) {
             case ADDITION:
@@ -59,7 +71,7 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
             throw new IllegalStateException("Fragment cannot be null");
         }
 
-        init();
+        initArguments();
 
         new Runnable() {
             @Override
@@ -75,33 +87,99 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
         return this;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder addSharedElement(View view, String string) {
+        this.sharedElements.add(new Pair<>(view, string));
+        return this;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder addSharedElements(List<Pair<View, String>> elements) {
+        this.sharedElements.addAll(elements);
+        return this;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ForwardBuilder setEnterTransition(Object enterTransition) {
         this.enterTransition = enterTransition;
         return self();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder setEnterTransition(@TransitionRes int res) {
+        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            this.enterTransition = TransitionInflater.from(activity).inflateTransition(res);
+        }
+        return self();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ForwardBuilder setExitTransition(Object exitTransition) {
         this.exitTransition = exitTransition;
         return self();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder setExitTransition(@TransitionRes int res) {
+        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            this.exitTransition = TransitionInflater.from(activity).inflateTransition(res);
+        }
+        return self();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ForwardBuilder setReenterTransition(Object reenterTransition) {
         this.reenterTransition = reenterTransition;
         return self();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder setReenterTransition(@TransitionRes int res) {
+        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            this.reenterTransition = TransitionInflater.from(activity).inflateTransition(res);
+        }
+        return self();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ForwardBuilder setReturnTransition(Object returnTransition) {
         this.returnTransition = returnTransition;
         return self();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder setReturnTransition(@TransitionRes int res) {
+        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            this.returnTransition = TransitionInflater.from(activity).inflateTransition(res);
+        }
+        return self();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ForwardBuilder setSharedElementEnterTransition(Object sharedElementEnterTransition) {
         this.sharedElementEnterTransition = sharedElementEnterTransition;
         return self();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder setSharedElementEnterTransition(@TransitionRes int res) {
+        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            this.sharedElementEnterTransition = TransitionInflater.from(activity).inflateTransition(res);
+        }
+        return self();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ForwardBuilder setSharedElementReturnTransition(Object sharedElementReturnTransition) {
         this.sharedElementReturnTransition = sharedElementReturnTransition;
+        return self();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ForwardBuilder setSharedElementReturnTransition(@TransitionRes int res) {
+        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            this.sharedElementReturnTransition = TransitionInflater.from(activity).inflateTransition(res);
+        }
         return self();
     }
 
@@ -125,14 +203,10 @@ public class ForwardBuilder extends BaseBuilder<ForwardBuilder, ForwardRequest, 
         return self();
     }
 
-    protected void init() {
-        fragment.setEnterTransition(enterTransition);
-        fragment.setExitTransition(exitTransition);
-        fragment.setReenterTransition(reenterTransition);
-        fragment.setReturnTransition(returnTransition);
-        fragment.setSharedElementEnterTransition(sharedElementEnterTransition);
-        fragment.setSharedElementReturnTransition(sharedElementReturnTransition);
-
+    /**
+     * Init fragment arguments
+     */
+    protected void initArguments() {
         if (fragment.getArguments() == null) {
             final Bundle arg = new Bundle(1);
             arg.putString(ShapeshifterConstants.ARG_FRAGMENT_ROOT, root);

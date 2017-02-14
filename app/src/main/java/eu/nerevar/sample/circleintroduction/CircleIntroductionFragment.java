@@ -3,7 +3,10 @@ package eu.nerevar.sample.circleintroduction;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.view.View;
+
+import java.util.List;
 
 import eu.inloop.viewmodel.binding.ViewModelBaseBindingFragment;
 import eu.inloop.viewmodel.binding.ViewModelBindingConfig;
@@ -33,5 +36,10 @@ public class CircleIntroductionFragment extends ViewModelBaseBindingFragment<Cir
     @Override
     public Class<CircleIntroductionViewModel> getViewModelClass() {
         return CircleIntroductionViewModel.class;
+    }
+
+    @Override
+    public List<Pair<View, String>> getSharedElements() {
+        return null;
     }
 }

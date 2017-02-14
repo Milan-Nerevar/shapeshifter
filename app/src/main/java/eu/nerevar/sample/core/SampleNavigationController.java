@@ -3,6 +3,8 @@ package eu.nerevar.sample.core;
 
 import eu.nerevar.shapeshifter.core.BaseNavigationController;
 
+import static android.support.v4.app.FragmentTransaction.TRANSIT_NONE;
+
 public class SampleNavigationController extends BaseNavigationController {
 
     private final int containerId;
@@ -21,5 +23,10 @@ public class SampleNavigationController extends BaseNavigationController {
     @Override
     protected String getRootTag() {
         return rootTag;
+    }
+
+    @Override
+    protected int getFragmentTransition() {
+        return TRANSIT_NONE;
     }
 }
