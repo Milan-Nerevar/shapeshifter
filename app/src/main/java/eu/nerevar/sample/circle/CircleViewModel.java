@@ -75,7 +75,7 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
                 .forward()
                 .setFragment(CircleFragment.newInstance())
                 .setRoot(CircleIntroductionFragment.class.getName())
-                .navigate(ForwardMode.REPLACEMENT);
+                .navigate(ForwardMode.WITHOUT_REPLACEMENT);
     }
 
     public void navigateToRootFragment() {
@@ -102,9 +102,7 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
         }
 
         Shapeshifter.with(getActivity())
-                .backward()
-                .setImmediate(false)
-                .navigate(BackwardMode.POP_WHOLE);
+                .popWhole();
     }
 
     CircleModel getModel() {

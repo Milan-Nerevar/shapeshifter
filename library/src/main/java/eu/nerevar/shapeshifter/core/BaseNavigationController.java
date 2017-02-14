@@ -109,9 +109,7 @@ public abstract class BaseNavigationController implements NavigationController<F
 
             return true;
         } else {
-            final int count = fragmentManager.getBackStackEntryCount();
-
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
                 fragmentManager.popBackStack();
             }
 
