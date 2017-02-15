@@ -25,14 +25,11 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    // module
+    // navigation library module
     compile project(':library')
 
-    // support library - appcompat
-    compile 'com.android.support:appcompat-v7:25.1.1'
-
     // support library - design
-    compile 'com.android.support:design:25.1.1'
+    compile "com.android.support:design:$supportLibVersion"
 
     // view model
     compile 'eu.inloop:androidviewmodel:1.2.3'
