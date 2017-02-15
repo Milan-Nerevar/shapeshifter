@@ -29,31 +29,6 @@
             android:transitionName="@string/transition_circle"
             app:colorTint="@{model.color}" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.pop()}"
-                android:text="Pop" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.popWhole()}"
-                android:text="Pop whole" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.navigateToRootFragment()}"
-                android:text="Go to root" />
-
-        </LinearLayout>
-
     </AbsoluteLayout>
 
 </layout>

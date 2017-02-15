@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 import eu.nerevar.sample.R;
 import eu.nerevar.sample.base.BaseViewModel;
-import eu.nerevar.sample.circleintroduction.CircleIntroductionFragment;
+import eu.nerevar.sample.circle.CircleFragment;
 import eu.nerevar.shapeshifter.core.ForwardMode;
 import eu.nerevar.shapeshifter.core.Shapeshifter;
 
@@ -20,8 +20,8 @@ public class RootViewModel extends BaseViewModel<RootView> {
         final Fragment fragment;
 
         switch (id) {
-            case R.id.nav_first_fragment:
-                fragment = CircleIntroductionFragment.newInstance();
+            case R.id.nav_fragment_transitions:
+                fragment = CircleFragment.newInstance();
                 break;
             default:
                 return false;

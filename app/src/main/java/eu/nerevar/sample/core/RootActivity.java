@@ -14,7 +14,7 @@ import java.util.List;
 
 import eu.inloop.viewmodel.base.ViewModelBaseActivity;
 import eu.nerevar.sample.R;
-import eu.nerevar.sample.circleintroduction.CircleIntroductionFragment;
+import eu.nerevar.sample.circle.CircleFragment;
 import eu.nerevar.sample.databinding.ActivityRootBinding;
 import eu.nerevar.shapeshifter.core.ForwardMode;
 import eu.nerevar.shapeshifter.core.IShapeshifter;
@@ -42,10 +42,10 @@ public class RootActivity extends ViewModelBaseActivity<RootView, RootViewModel>
         });
 
         if (savedInstanceState == null) {
+            binding.navigation.setCheckedItem(R.id.nav_fragment_transitions);
             Shapeshifter.with(this)
                     .forward()
-                    .setFragment(CircleIntroductionFragment.newInstance())
-                    .setRoot(CircleIntroductionFragment.class.getName())
+                    .setFragment(CircleFragment.newInstance())
                     .navigate(ForwardMode.REPLACEMENT);
         }
 

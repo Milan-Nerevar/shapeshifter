@@ -11,7 +11,6 @@ import android.util.Log;
 import java.util.Random;
 
 import eu.nerevar.sample.base.BaseViewModel;
-import eu.nerevar.sample.circleintroduction.CircleIntroductionFragment;
 import eu.nerevar.sample.utils.TransitionUtils;
 import eu.nerevar.shapeshifter.core.ForwardMode;
 import eu.nerevar.shapeshifter.core.Shapeshifter;
@@ -82,35 +81,7 @@ public class CircleViewModel extends BaseViewModel<CircleView> {
                 .addSharedElements(requestSharedElements())
                 .setAllowReturnTransitionOverlap(true)
                 .setAllowEnterTransitionOverlap(true)
-                .setRoot(CircleIntroductionFragment.class.getName())
                 .navigate(ForwardMode.WITHOUT_REPLACEMENT);
-    }
-
-    public void navigateToRootFragment() {
-        if (getActivity() == null || getFragment() == null) {
-            return;
-        }
-
-        Shapeshifter.with(getActivity())
-                .navigateToRootFragment(getFragment());
-    }
-
-    public void pop() {
-        if (getActivity() == null) {
-            return;
-        }
-
-        Shapeshifter.with(getActivity())
-                .pop();
-    }
-
-    public void popWhole() {
-        if (getActivity() == null) {
-            return;
-        }
-
-        Shapeshifter.with(getActivity())
-                .popWhole();
     }
 
     CircleModel getModel() {

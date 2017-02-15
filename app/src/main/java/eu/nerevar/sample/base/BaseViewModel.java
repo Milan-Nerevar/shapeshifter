@@ -38,7 +38,7 @@ public abstract class BaseViewModel<T extends BaseView> extends AbstractViewMode
     }
 
     @Nullable
-    public List<Pair<View, String>> requestSharedElements() {
+    protected List<Pair<View, String>> requestSharedElements() {
         if (getView() != null) {
             return getView().getSharedElements();
         }
