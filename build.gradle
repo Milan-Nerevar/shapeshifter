@@ -17,6 +17,11 @@ allprojects {
 
 ext {
     supportLibVersion = '25.1.1'
+
+    VERSION_NAME = "0.9"
+
+    PUBLISH_GROUP_ID = 'eu.milan'
+    PUBLISH_ARTIFACT_ID = 'shapeshifter'
 }
 
 task clean(type: Delete) {
