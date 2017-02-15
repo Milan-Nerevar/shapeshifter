@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public class CircleModel implements Serializable {
 
+    public static final int TRANSITION_DURATION = 300;
+
     private final ObservableInt color = new ObservableInt();
 
     private final ObservableInt x = new ObservableInt();
