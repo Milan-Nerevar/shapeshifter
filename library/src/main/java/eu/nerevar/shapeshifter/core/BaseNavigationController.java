@@ -9,10 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.View;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
+
+import eu.nerevar.shapeshifter.utils.Utils;
 
 import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_CLOSE;
 import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
@@ -27,24 +32,38 @@ public abstract class BaseNavigationController implements NavigationController<F
 
     @Override
     public void navigateByAddition(ForwardRequest request) {
+        // log request
+        logForwardRequest(request, true);
+        // set animations
         setAnimations(request);
+        // add fragment
         addFragment(request, true);
     }
 
     @Override
     public void navigateByReplacement(ForwardRequest request) {
-        replaceFragment(request, false);
+        // log request
+        logForwardRequest(request, false);
+        // set animations
         setAnimations(request);
+        // replace fragment
+        replaceFragment(request, false);
     }
 
     @Override
     public void navigateWithoutReplacement(ForwardRequest request) {
-        replaceFragment(request, true);
+        // log request
+        logForwardRequest(request, true);
+        // set animations
         setAnimations(request);
+        // replace fragment
+        replaceFragment(request, true);
     }
 
     @Override
     public void navigateToNewRoot(ForwardRequest request) {
+        logForwardRequest(request, false);
+
         final FragmentManager fragmentManager = request.activity.getSupportFragmentManager();
 
         // pop all fragments
@@ -71,10 +90,13 @@ public abstract class BaseNavigationController implements NavigationController<F
             // replace fragment
             replaceFragment(request, false);
         }
+
     }
 
     @Override
     public boolean navigateToFragmentRoot(BackwardRequest request) {
+        logBackwardRequest(request);
+
         if (request.root == null) {
             return false;
         }
@@ -98,6 +120,8 @@ public abstract class BaseNavigationController implements NavigationController<F
      */
     @Override
     public boolean popWholeBackStack(BackwardRequest request) {
+        logBackwardRequest(request);
+
         final FragmentManager fragmentManager = request.activity.getSupportFragmentManager();
 
         if (fragmentManager.getBackStackEntryCount() <= 0) {
@@ -121,6 +145,8 @@ public abstract class BaseNavigationController implements NavigationController<F
 
     @Override
     public boolean pop(BackwardRequest request) {
+        logBackwardRequest(request);
+
         final FragmentManager fragmentManager = request.activity.getSupportFragmentManager();
 
         if (fragmentManager.getBackStackEntryCount() > 0) {
@@ -220,13 +246,6 @@ public abstract class BaseNavigationController implements NavigationController<F
         fragment.setAllowReturnTransitionOverlap(request.allowReturnTransitionOverlap);
     }
 
-    private void addSharedElements(@NonNull final ForwardRequest request,
-                                   @NonNull final FragmentTransaction transaction) {
-        for (Pair<View, String> sharedElement : request.sharedElements) {
-            transaction.addSharedElement(sharedElement.first, sharedElement.second);
-        }
-    }
-
     @Transit
     protected int getFragmentTransition() {
         return TRANSIT_FRAGMENT_FADE;
@@ -240,6 +259,34 @@ public abstract class BaseNavigationController implements NavigationController<F
 
     @Nullable
     protected abstract String getRootTag();
+
+    private void logForwardRequest(ForwardRequest request, boolean addToBackStack) {
+        final List<String> strings = new ArrayList<>(request.sharedElements.size());
+        for (Pair<View, String> pair : request.sharedElements) {
+            strings.add(pair.second);
+        }
+
+        Log.d("Shapeshifter", String.format("Consuming FORWARD request for [%s]. addToBackStack=%b, immediate=%b, allowStateLoss=%b, sharedElements=[%s]",
+                request.fragment.getClass().getName(),
+                addToBackStack,
+                request.immediate,
+                request.allowStateLoss,
+                Utils.listToString(strings)));
+    }
+
+    private void logBackwardRequest(BackwardRequest request) {
+        Log.d("Shapeshifter", String.format("Consuming BACKWARD request for [%s]. immediate=%b, allowStateLoss=%b",
+                request.fragment.getClass().getName(),
+                request.immediate,
+                request.allowStateLoss));
+    }
+
+    private void addSharedElements(@NonNull final ForwardRequest request,
+                                   @NonNull final FragmentTransaction transaction) {
+        for (Pair<View, String> sharedElement : request.sharedElements) {
+            transaction.addSharedElement(sharedElement.first, sharedElement.second);
+        }
+    }
 
     @IntDef({TRANSIT_NONE, TRANSIT_FRAGMENT_OPEN, TRANSIT_FRAGMENT_CLOSE, TRANSIT_FRAGMENT_FADE})
     @Retention(RetentionPolicy.SOURCE)
