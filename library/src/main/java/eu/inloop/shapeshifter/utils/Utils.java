@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.utils;
+package eu.inloop.shapeshifter.utils;
 
 
 import android.app.Activity;
@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
-import eu.nerevar.shapeshifter.core.IShapeshifter;
-import eu.nerevar.shapeshifter.core.NavigationController;
+import eu.inloop.shapeshifter.core.NavigationController;
+import eu.inloop.shapeshifter.core.IShapeshifter;
 
 public class Utils {
 

@@ -16,10 +16,10 @@ import eu.inloop.viewmodel.base.ViewModelBaseActivity;
 import eu.nerevar.sample.R;
 import eu.nerevar.sample.circle.CircleFragment;
 import eu.nerevar.sample.databinding.ActivityRootBinding;
-import eu.nerevar.shapeshifter.core.ForwardMode;
-import eu.nerevar.shapeshifter.core.IShapeshifter;
-import eu.nerevar.shapeshifter.core.NavigationController;
-import eu.nerevar.shapeshifter.core.Shapeshifter;
+import eu.inloop.shapeshifter.core.ForwardMode;
+import eu.inloop.shapeshifter.core.IShapeshifter;
+import eu.inloop.shapeshifter.core.NavigationController;
+import eu.inloop.shapeshifter.core.Shapeshifter;
 
 public class RootActivity extends ViewModelBaseActivity<RootView, RootViewModel>
         implements RootView, IShapeshifter {

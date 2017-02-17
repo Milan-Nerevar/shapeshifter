@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 
 import android.support.annotation.IdRes;
@@ -17,7 +17,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.nerevar.shapeshifter.utils.Utils;
+import eu.inloop.shapeshifter.utils.Utils;
 
 import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_CLOSE;
 import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;

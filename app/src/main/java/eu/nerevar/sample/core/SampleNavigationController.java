@@ -1,7 +1,7 @@
 package eu.nerevar.sample.core;
 
 
-import eu.nerevar.shapeshifter.core.BaseNavigationController;
+import eu.inloop.shapeshifter.core.BaseNavigationController;
 
 import static android.support.v4.app.FragmentTransaction.TRANSIT_NONE;
 

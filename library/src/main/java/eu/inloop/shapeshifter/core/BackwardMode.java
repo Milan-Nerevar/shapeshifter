@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 /**
  * Default backward navigation mode for {@link BaseNavigationController} built by a {@link BackwardBuilder}.

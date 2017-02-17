@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 
 import android.support.annotation.NonNull;

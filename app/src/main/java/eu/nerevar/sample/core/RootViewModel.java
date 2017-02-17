@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import eu.nerevar.sample.R;
 import eu.nerevar.sample.base.BaseViewModel;
 import eu.nerevar.sample.circle.CircleFragment;
-import eu.nerevar.shapeshifter.core.ForwardMode;
-import eu.nerevar.shapeshifter.core.Shapeshifter;
+import eu.inloop.shapeshifter.core.ForwardMode;
+import eu.inloop.shapeshifter.core.Shapeshifter;
 
 public class RootViewModel extends BaseViewModel<RootView> {
 

@@ -20,7 +20,7 @@ ext {
 
     VERSION_NAME = "0.9"
 
-    PUBLISH_GROUP_ID = 'eu.milan'
+    PUBLISH_GROUP_ID = 'eu.inloop'
     PUBLISH_ARTIFACT_ID = 'shapeshifter'
 }
 

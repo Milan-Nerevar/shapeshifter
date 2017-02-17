@@ -12,8 +12,8 @@ import java.util.Random;
 
 import eu.nerevar.sample.base.BaseViewModel;
 import eu.nerevar.sample.utils.TransitionUtils;
-import eu.nerevar.shapeshifter.core.ForwardMode;
-import eu.nerevar.shapeshifter.core.Shapeshifter;
+import eu.inloop.shapeshifter.core.ForwardMode;
+import eu.inloop.shapeshifter.core.Shapeshifter;
 
 public class CircleViewModel extends BaseViewModel<CircleView> {
 

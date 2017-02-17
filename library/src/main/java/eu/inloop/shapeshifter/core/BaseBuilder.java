@@ -1,11 +1,11 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
-import eu.nerevar.shapeshifter.utils.Utils;
+import eu.inloop.shapeshifter.utils.Utils;
 
 /**
  * Base class for navigation builder

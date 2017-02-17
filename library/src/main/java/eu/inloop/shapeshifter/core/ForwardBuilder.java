@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 
 import android.annotation.TargetApi;
@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.TransitionRes;
-import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionInflater;
@@ -15,7 +14,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
+import eu.inloop.shapeshifter.utils.ShapeshifterConstants;
 
 /**
  * Default forward builder for creating a {@link ForwardRequest} used by {@link BaseNavigationController}.

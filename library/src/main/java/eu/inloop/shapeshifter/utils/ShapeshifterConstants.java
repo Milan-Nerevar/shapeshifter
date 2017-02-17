@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.utils;
+package eu.inloop.shapeshifter.utils;
 
 
 public class ShapeshifterConstants {

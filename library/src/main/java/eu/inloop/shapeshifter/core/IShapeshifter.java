@@ -1,4 +1,4 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 /**
  * An interface which an activity has to implement to be able to use Shapeshifter library.

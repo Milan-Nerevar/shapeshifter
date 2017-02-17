@@ -1,10 +1,10 @@
-package eu.nerevar.shapeshifter.core;
+package eu.inloop.shapeshifter.core;
 
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import eu.nerevar.shapeshifter.utils.ShapeshifterConstants;
+import eu.inloop.shapeshifter.utils.ShapeshifterConstants;
 
 /**
  * Default backward builder for creating a {@link BackwardRequest} used by {@link BaseNavigationController}.
